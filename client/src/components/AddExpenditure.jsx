@@ -1,87 +1,77 @@
-import React, { useState, useEffect } from 'react';
-import { Plus } from 'lucide-react';
-import toast, { Toaster } from 'react-hot-toast';
+import React, { useState } from "react";
+import { Plus } from "lucide-react";
+import toast, { Toaster } from "react-hot-toast";
 
-const categories = ['Food', 'Travel', 'Rent', 'Utilities', 'Entertainment', 'Other'];
+const categories = ["Food", "Travel", "Rent", "Utilities", "Entertainment", "Other"];
 
 const AddExpenditure = () => {
-  const [formData, setFormData] = useState({ name: '', category: '' });
+  const [form, setForm] = useState({ name: "", category: "", amount: "" });
 
-  // Load previous data from localStorage
-  useEffect(() => {
-    const storedData = localStorage.getItem('expenses');
-    if (!storedData) {
-      localStorage.setItem('expenses', JSON.stringify([]));
-    }
-  }, []);
-
-  const handleChange = e => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!formData.name || !formData.category) {
-      toast.error('All fields are required');
+    if (!form.name || !form.category || !form.amount) {
+      toast.error("All fields are required");
       return;
     }
 
-    const newExpense = {
-      id: Date.now(),
-      ...formData,
-      date: new Date().toISOString()
-    };
-
-    const existing = JSON.parse(localStorage.getItem('expenses') || '[]');
-    localStorage.setItem('expenses', JSON.stringify([newExpense, ...existing]));
-
-    setFormData({ name: '', category: '' });
-    toast.success('✔️ Expense Added');
+    console.log("Expense submitted:", form); // Replace with backend call
+    toast.success("Expense Added ✅");
+    setForm({ name: "", category: "", amount: "" });
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center px-4">
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
       <Toaster position="top-center" />
-
       <form
         onSubmit={handleSubmit}
-        className="bg-white shadow-lg rounded-xl w-full max-w-md p-6 space-y-6"
+        className="bg-white shadow-2xl rounded-3xl p-12 w-full max-w-3xl space-y-8 border border-gray-200 hover:shadow-blue-100 transition-all duration-300"
       >
-        <h2 className="text-xl font-semibold text-center text-gray-700">Add New Expense</h2>
+        <h2 className="text-3xl font-bold text-center text-blue-700">Add New Expense</h2>
 
-        <div>
-          <label className="block text-gray-600 mb-1">Expense Name</label>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
           <input
             type="text"
             name="name"
-            value={formData.name}
+            value={form.name}
             onChange={handleChange}
-            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            placeholder="e.g., Grocery Shopping"
+            placeholder="Expense Name"
+            className="col-span-1 w-full px-5 py-4 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
-        </div>
 
-        <div>
-          <label className="block text-gray-600 mb-1">Category</label>
           <select
             name="category"
-            value={formData.category}
+            value={form.category}
             onChange={handleChange}
-            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="col-span-1 w-full px-5 py-4 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
             <option value="">Select Category</option>
-            {categories.map(cat => (
-              <option key={cat} value={cat}>{cat}</option>
+            {categories.map((cat, i) => (
+              <option key={i} value={cat}>
+                {cat}
+              </option>
             ))}
           </select>
+
+          <input
+            type="number"
+            name="amount"
+            value={form.amount}
+            onChange={handleChange}
+            placeholder="Amount"
+            className="col-span-1 sm:col-span-2 w-full px-5 py-4 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
         </div>
 
         <button
           type="submit"
-          className="w-full flex justify-center items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold py-2.5 rounded-lg transition"
+          className="w-full flex items-center justify-center gap-3 px-6 py-4 bg-blue-600 text-white text-lg font-semibold rounded-xl hover:bg-blue-700 transition"
         >
-          <Plus className="w-5 h-5" />
+          <Plus className="w-6 h-6" />
           Add Expense
         </button>
       </form>
