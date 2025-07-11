@@ -14,7 +14,7 @@ const Login = () => {
       return;
     }
 
-
+    // Replace this with real auth logic
     toast.success("Logged in successfully!");
   };
 
@@ -39,7 +39,6 @@ const Login = () => {
               />
             </div>
           </div>
-
           {/* Password */}
           <div>
             <label className="block mb-1 text-gray-600 font-medium">Password</label>

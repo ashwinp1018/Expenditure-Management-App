@@ -4,13 +4,13 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-const ExpenditurePieChart = () => {
+const IncomePieChart = () => {
   const data = {
-    labels: ['Food', 'Misc', 'Rent', 'Subscriptions', 'Transport'],
+    labels: ['Freelance', 'Investments', 'Other', 'Salary'],
     datasets: [
       {
-        data: [2000, 1000, 1000, 1500, 1250],
-        backgroundColor: ['#10b981', '#f87171', '#facc15', '#fbbf24', '#3b82f6'],
+        data: [5000, 1200, 800, 20000],
+        backgroundColor: ['#3b82f6', '#facc15', '#fb923c', '#10b981'],
         borderWidth: 1,
       },
     ],
@@ -32,7 +32,7 @@ const ExpenditurePieChart = () => {
 
   return (
     <div className="bg-white p-4 rounded-lg shadow-md h-[350px] flex flex-col">
-      <h2 className="text-center text-lg font-semibold mb-4">Expenditure Breakdown</h2>
+      <h2 className="text-center text-lg font-semibold mb-4">Income Breakdown</h2>
       <div className="flex-grow">
         <Doughnut data={data} options={options} />
       </div>
@@ -40,4 +40,4 @@ const ExpenditurePieChart = () => {
   );
 };
 
-export default ExpenditurePieChart;
+export default IncomePieChart;

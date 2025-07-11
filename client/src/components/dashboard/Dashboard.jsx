@@ -1,30 +1,33 @@
-import React from 'react';
-import TotalExpenditureCard from './TotalExpenditureCard';
-import TotalIncomeCard from './TotalIncomeCard';
-import ExpenditurePieChart from './ExpenditurePieChart';
-import RecentTransactions from './RecentTransactions';
+import React from "react";
+import TotalExpenditureCard from "./components/dashboard/TotalExpenditureCard";
+import TotalIncomeCard from "./components/dashboard/TotalIncomeCard";
+import ExpenditurePieChart from "./components/dashboard/ExpenditurePieChart";
+import IncomePieChart from "./components/dashboard/IncomePieChart";
+import RecentTransactions from "./components/dashboard/RecentTransactions";
+import CommonExpenses from "./components/dashboard/CommonExpenses";
 
 const Dashboard = () => {
   return (
-    <div className="min-h-screen bg-gray-100 p-4 sm:p-8">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-5 gap-6">
-
-        {/* Left Column: Totals */}
-        <div className="flex flex-col gap-6 lg:col-span-1">
+    <div className="pt-28 px-4 max-w-7xl mx-auto">
+      {/* Top Section */}
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+        {/* Left Column */}
+        <div className="space-y-4 col-span-1">
           <TotalExpenditureCard />
           <TotalIncomeCard />
+          <CommonExpenses />
         </div>
 
-        {/* Center Column: Pie Chart */}
-        <div className="lg:col-span-3">
+        {/* Center Column */}
+        <div className="col-span-1 lg:col-span-2 space-y-4">
           <ExpenditurePieChart />
+          <IncomePieChart />
         </div>
 
-        {/* Right Column: Transactions */}
-        <div className="lg:col-span-1">
+        {/* Right Column */}
+        <div className="col-span-1">
           <RecentTransactions />
         </div>
-        
       </div>
     </div>
   );

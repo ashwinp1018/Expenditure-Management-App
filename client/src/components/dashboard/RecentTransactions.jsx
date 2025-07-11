@@ -1,44 +1,32 @@
-import React, { useEffect, useState } from 'react';
-import clsx from 'clsx';
-
-const mockTransactions = [
-  { title: 'Grocery Shopping', date: '2025-07-01', amount: -1500, type: 'expense' },
-  { title: 'Salary', date: '2025-07-01', amount: 20000, type: 'income' },
-  { title: 'Metro Recharge', date: '2025-07-02', amount: -200, type: 'expense' },
-  { title: 'Netflix', date: '2025-07-03', amount: -500, type: 'expense' },
-  { title: 'Freelance Work', date: '2025-07-04', amount: 5000, type: 'income' }
-];
+import React from 'react';
 
 const RecentTransactions = () => {
-  const [transactions, setTransactions] = useState([]);
-
-  useEffect(() => {
-    setTimeout(() => {
-      setTransactions(mockTransactions);
-    }, 500);
-  }, []);
+  const transactions = [
+    { id: 1, name: 'Grocery Shopping', amount: -1500, date: '2025-07-01' },
+    { id: 2, name: 'Salary', amount: 20000, date: '2025-07-01' },
+    { id: 3, name: 'Metro Recharge', amount: -200, date: '2025-07-02' },
+    { id: 4, name: 'Netflix', amount: -500, date: '2025-07-03' },
+    { id: 5, name: 'Freelance Work', amount: 5000, date: '2025-07-04' },
+  ];
 
   return (
-    <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6 hover:shadow-lg transition-all duration-200 max-h-[400px] overflow-y-auto">
-      <h2 className="text-lg font-semibold mb-4">Recent Transactions</h2>
-      <ul className="space-y-4">
-        {transactions.map((txn, index) => (
-          <li key={index} className="flex justify-between items-center border-b pb-2">
-            <div>
-              <p className="font-medium">{txn.title}</p>
-              <p className="text-sm text-gray-500">{txn.date}</p>
-            </div>
+    <div className="bg-white p-4 rounded-lg shadow-md h-full overflow-y-auto">
+      <h2 className="text-lg font-semibold mb-2 border-b pb-2">Recent Transactions</h2>
+      {transactions.map((tx) => (
+        <div key={tx.id} className="mb-2 pb-2 border-b">
+          <div className="flex justify-between">
+            <span className="font-semibold">{tx.name}</span>
             <span
-              className={clsx(
-                'font-semibold text-sm',
-                txn.type === 'income' ? 'text-green-500' : 'text-red-500'
-              )}
+              className={
+                tx.amount < 0 ? 'text-red-500 font-semibold' : 'text-green-500 font-semibold'
+              }
             >
-              {txn.type === 'income' ? '+' : '-'}₹{Math.abs(txn.amount)}
+              {tx.amount < 0 ? '-' : '+'}₹{Math.abs(tx.amount)}
             </span>
-          </li>
-        ))}
-      </ul>
+          </div>
+          <div className="text-sm text-gray-500">{tx.date}</div>
+        </div>
+      ))}
     </div>
   );
 };
